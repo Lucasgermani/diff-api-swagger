@@ -55,3 +55,9 @@ After inputting data in both left and right endpoints, you can retrieve the resu
 >  { "offset": 9, "length": 2 }
 >  ]
 >  }
+
+
+### Tests
+To run the tests, at the project directory run:
+> mvn clean install
+* It'll compile and run unit and integration tests
