@@ -2,6 +2,16 @@
 ## About:
 This simple api recieves base64 encoded string in json format and generate the diff between them.
 
+## Technologies used
+
+- Swagger
+- Jax-rs
+- JUnit
+- Cucumber
+- RestAssured
+- Hamcrest
+
+
 ## Compile and deploy:
 ### Requiriments:
 
