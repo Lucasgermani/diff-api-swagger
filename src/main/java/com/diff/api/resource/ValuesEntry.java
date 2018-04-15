@@ -27,6 +27,18 @@ public class ValuesEntry {
         }
     }
 
+    /**
+     * Get value based on direction
+     * @param diretion
+     */
+    public String getValue(Direction diretion){
+        if(Direction.LEFT == diretion){
+            return left;
+        }else{
+            return right;
+        }
+    }
+
     public int getID() {
         return ID;
     }
