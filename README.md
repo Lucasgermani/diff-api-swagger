@@ -14,7 +14,7 @@ This simple api recieves base64 encoded string in json format and generate the d
  1. Clone this repository:
  > git clone git@github.com:Lucasgermani/diff-api-swagger.git
  2. Build the maven project
- > mvn clean package
+ > mvn clean install
  3. Execute the api jar
  > java -jar target/diff-api-swagger-1.0.0.jar
  4. Acess swagger via URL:
