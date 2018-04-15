@@ -10,6 +10,11 @@ import java.util.List;
 
 public class Comparator {
 
+    /**
+     * compare left and right values
+     * @param reg registry of a comparision
+     * @return DiffOutput with the comparision result
+     */
     public DiffOutput compare(ValuesEntry reg) {
         DiffOutput diffOutput = null;
 
@@ -28,6 +33,11 @@ public class Comparator {
     }
 
 
+    /** Compare the two base64 string informed on left and riht endpoints and calculate offsets and lenghts of the differente
+     * @param left
+     * @param right
+     * @return List with all the offsets and lenghs
+     */
     public List<Diff> processDiff(String left, String right) {
         List<Diff> diffList = new LinkedList<>();
 

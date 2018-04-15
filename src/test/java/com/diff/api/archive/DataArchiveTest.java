@@ -2,10 +2,10 @@ package com.diff.api.archive;
 
 import com.diff.api.resource.ValuesEntry;
 import com.diff.api.resource.enums.Direction;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
 import static org.junit.Assert.assertEquals;
 
 

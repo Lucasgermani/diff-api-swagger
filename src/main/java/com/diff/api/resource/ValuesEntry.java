@@ -3,6 +3,9 @@ package com.diff.api.resource;
 import com.diff.api.resource.enums.Direction;
 import com.wordnik.swagger.annotations.ApiModel;
 
+/**
+ * Holds the data required to perform an comparision
+ */
 @ApiModel( value = "ValuesEntry", description = "ValuesEntry resource" )
 public class ValuesEntry {
 

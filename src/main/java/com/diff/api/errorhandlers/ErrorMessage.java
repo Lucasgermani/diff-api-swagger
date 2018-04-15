@@ -3,6 +3,9 @@ package com.diff.api.errorhandlers;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Holds error information to return as json
+ */
 @XmlRootElement
 public class ErrorMessage {
 

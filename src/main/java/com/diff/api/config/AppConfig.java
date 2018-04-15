@@ -30,7 +30,7 @@ public class AppConfig {
 	public SpringBus cxf() {
 		return new SpringBus();
 	}
-	
+
 	@Bean @DependsOn( "cxf" )
 	public Server jaxRsServer() {
 		JAXRSServerFactoryBean factory = RuntimeDelegate.getInstance().createEndpoint( jaxRsApiApplication(), JAXRSServerFactoryBean.class );
@@ -39,7 +39,12 @@ public class AppConfig {
 		factory.setProviders( Arrays.< Object >asList( jsonProvider(), resourceListingProvider(), apiDeclarationProvider() ) );
 		return factory.create();
 	}
-	
+
+	/**
+	 * setup swagger configuration
+	 * @param environment
+	 * @return
+	 */
 	@Bean @Autowired
 	public BeanConfig swaggerConfig(Environment environment) {
 		final BeanConfig config = new BeanConfig();

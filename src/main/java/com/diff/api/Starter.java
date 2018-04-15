@@ -15,38 +15,53 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 public class Starter {
 	private static final int SERVER_PORT = 8080;
 	private static final String CONTEXT_PATH = "rest";
-	
+
+	/**
+	 * When running the project from jar, it'll start the service
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main( final String[] args ) throws Exception {
+		startService();
+	}
+
+	/**
+	 * Start the actual service
+	 * @throws Exception
+	 */
+	public static Server startService() throws Exception {
 		Resource.setDefaultUseCaches( false );
-		
-		final Server server = new Server( SERVER_PORT );		
+
+		final Server server = new Server( SERVER_PORT );
 		System.setProperty( AppConfig.SERVER_PORT, Integer.toString( SERVER_PORT ) );
 		System.setProperty( AppConfig.SERVER_HOST, "localhost" );
-		System.setProperty( AppConfig.CONTEXT_PATH, CONTEXT_PATH );				
+		System.setProperty( AppConfig.CONTEXT_PATH, CONTEXT_PATH );
 
-		// Configuring Apache CXF servlet and Spring listener  
-		final ServletHolder servletHolder = new ServletHolder( new CXFServlet() ); 		 		
- 		final ServletContextHandler context = new ServletContextHandler(); 		
- 		context.setContextPath( "/" );
- 		context.addServlet( servletHolder, "/" + CONTEXT_PATH + "/*" ); 	 		
- 		context.addEventListener( new ContextLoaderListener() ); 		 		
- 		context.setInitParameter( "contextClass", AnnotationConfigWebApplicationContext.class.getName() );
- 		context.setInitParameter( "contextConfigLocation", AppConfig.class.getName() );
- 		
- 	    // Configuring Swagger as static web resource
- 		final ServletHolder swaggerHolder = new ServletHolder( new DefaultServlet() );
- 		final ServletContextHandler swagger = new ServletContextHandler();
- 		swagger.setContextPath( "/swagger" );
- 		swagger.addServlet( swaggerHolder, "/*" );
-        swagger.setResourceBase( new ClassPathResource( "/webapp" ).getURI().toString() );
+		// Configuring Apache CXF servlet and Spring listener
+		final ServletHolder servletHolder = new ServletHolder( new CXFServlet() );
+		final ServletContextHandler context = new ServletContextHandler();
+		context.setContextPath( "/" );
+		context.addServlet( servletHolder, "/" + CONTEXT_PATH + "/*" );
+		context.addEventListener( new ContextLoaderListener() );
+		context.setInitParameter( "contextClass", AnnotationConfigWebApplicationContext.class.getName() );
+		context.setInitParameter( "contextConfigLocation", AppConfig.class.getName() );
 
- 		final HandlerList handlers = new HandlerList();
- 		handlers.addHandler( swagger );
- 		handlers.addHandler( context );
- 		
-        server.setHandler( handlers );
-        server.start();
-        server.join();	
+		// Configuring Swagger as static web resource
+		final ServletHolder swaggerHolder = new ServletHolder( new DefaultServlet() );
+		final ServletContextHandler swagger = new ServletContextHandler();
+		swagger.setContextPath( "/swagger" );
+		swagger.addServlet( swaggerHolder, "/*" );
+		swagger.setResourceBase( new ClassPathResource( "/webapp" ).getURI().toString() );
+
+		final HandlerList handlers = new HandlerList();
+		handlers.addHandler( swagger );
+		handlers.addHandler( context );
+
+		server.setHandler( handlers );
+		server.start();
+		//server.join();
+
+		return server;
 	}
 }
 

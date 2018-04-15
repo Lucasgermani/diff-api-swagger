@@ -4,6 +4,7 @@ import com.diff.api.archive.DataArchive;
 import com.diff.api.comparator.Comparator;
 import com.diff.api.errorhandlers.ErrorResponseBuilder;
 import com.diff.api.resource.DiffOutput;
+import com.diff.api.resource.ValueInput;
 import com.diff.api.resource.ValuesEntry;
 import com.diff.api.resource.enums.Direction;
 import com.wordnik.swagger.annotations.*;
@@ -17,11 +18,19 @@ import javax.ws.rs.core.UriInfo;
 
 @Path("/v1/diff")
 @Api(value = "/v1/diff", description = "Base64String Diff")
-public class DiffRestService {
+public class DiffRestService{
 
-	@Produces({MediaType.APPLICATION_JSON})
+	/**
+	 * Left endpoint that gonna save information with ID and side.
+	 * @param uriInfo
+	 * @param ID
+	 * @param valueInput
+	 * @return HTTP status 201 if sucessfull
+	 */
 	@POST
 	@Path("/{ID}/left")
+	@Produces({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON})
 	@ApiOperation(value = "add left value", notes = "add left string to compare")
 	@ApiResponses({
 			@ApiResponse(code = 201, message = "OK"),
@@ -29,15 +38,23 @@ public class DiffRestService {
 	})
 	public Response left( @Context final UriInfo uriInfo,
 						  @ApiParam(value = "ID", required = true) @PathParam("ID") final int ID,
-						  @ApiParam(value = "Base64String", required = true) @FormParam("value") final String value) {
+						  @ApiParam(value = "value", required = true) final ValueInput valueInput){
 
-		DataArchive.add(ID, value, Direction.LEFT);
+		DataArchive.add(ID, valueInput.getValue(), Direction.LEFT);
 		return Response.created(uriInfo.getRequestUriBuilder().build()).build();
 	}
 
-	@Produces({MediaType.APPLICATION_JSON })
+	/**
+	 * Right endpoint that gonna save information with ID and side.
+	 * @param uriInfo
+	 * @param ID
+	 * @param valueInput
+	 * @return HTTP status 201 if sucessfull
+	 */
 	@POST
 	@Path("/{ID}/right")
+	@Produces({MediaType.APPLICATION_JSON })
+	@Consumes({MediaType.APPLICATION_JSON})
 	@ApiOperation(value = "add right value", notes = "add right string to compare")
 	@ApiResponses({
 			@ApiResponse(code = 201, message = "OK"),
@@ -45,16 +62,22 @@ public class DiffRestService {
 	})
 	public Response right( @Context final UriInfo uriInfo,
 						  @ApiParam(value = "ID", required = true) @PathParam("ID") final int ID,
-						  @ApiParam(value = "Base64String", required = true) @FormParam("value") final String value) {
+						  @ApiParam(value = "value", required = true) final ValueInput valueInput){
 
-		DataArchive.add(ID, value, Direction.RIGHT);
+		DataArchive.add(ID, valueInput.getValue(), Direction.RIGHT);
 		return Response.created(uriInfo.getRequestUriBuilder().build()).build();
 	}
 
-
-	@Produces({MediaType.APPLICATION_JSON})
+	/**
+	 * Get endpoint that provides the result of a comparision
+	 * @param uriInfo
+	 * @param ID
+	 * @return HTTP status 200 if the comparision was performed without error and the comparision result as json
+	 * or HTTP status 404 if the comparision failed and a error message
+	 */
 	@GET
 	@Path("/{ID}")
+	@Produces({MediaType.APPLICATION_JSON})
 	@ApiOperation(value = "get string diff", notes = "get diff from left and right values")
 	@ApiResponses({
 			@ApiResponse(code = 201, message = "OK"),

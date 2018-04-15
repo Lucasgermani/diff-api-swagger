@@ -2,12 +2,15 @@ package com.diff.api.resource;
 
 import com.diff.api.resource.enums.Result;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
 
-
+/**
+ * Holds output information about the comparision, used to return as json
+ */
 @XmlRootElement
 public class DiffOutput implements Serializable {
 
@@ -16,6 +19,14 @@ public class DiffOutput implements Serializable {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Diff> diffList;
+
+    public DiffOutput(Integer id, Result result, List<Diff> diffList) {
+        this.id = id;
+        this.result = result;
+        this.diffList = diffList;
+    }
+
+    public DiffOutput(){}
 
     public DiffOutput(Integer id) {
         this.id = id;
