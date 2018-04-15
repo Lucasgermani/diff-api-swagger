@@ -46,12 +46,12 @@ After inputting data in both left and right endpoints, you can retrieve the resu
 >{ "id": 123, "result": "DIFFERENT_SIZE" }
 * If they are of the same size but different:
 
-    >{
-    >"id": 123,
-    >"result": "DIFFERENT",
-    	>"diffList": [
-    		>{ "offset": 1, "length": 2 },
-    		>{ "offset": 5, "length": 2 },
-    		>{ "offset": 9, "length": 2 }
-    	>]
-    >}
+> {
+>  "id": 123,
+> "result": "DIFFERENT",
+> "diffList": [
+>  { "offset": 1, "length": 2 },
+>  { "offset": 5, "length": 2 },
+>  { "offset": 9, "length": 2 }
+>  ]
+>  }
